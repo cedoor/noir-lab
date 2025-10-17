@@ -4,7 +4,7 @@
 PROJECT_NAME = noir_lab
 TARGET_DIR = target
 CIRCUIT_ARTIFACT = $(TARGET_DIR)/$(PROJECT_NAME).json
-NOIRUP_VERSION = 1.0.0-beta.12
+NOIRUP_VERSION = 1.0.0-beta.14
 
 # Default target
 .PHONY: help
