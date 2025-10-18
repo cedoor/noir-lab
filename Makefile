@@ -85,6 +85,6 @@ watch: ## Watch src directory and run 'make dev' on file changes
 	@watchexec -e nr -w src "make dev"
 
 .PHONY: run-app
-run-app: ## Run the app in development mode
+run-app: ## Run the Web app in development mode
 	@echo "Running web app..."
 	cd web-app && npm run dev

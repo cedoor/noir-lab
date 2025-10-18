@@ -36,4 +36,7 @@ make dev              # Development workflow (check + test)
 
 # Watch
 make watch            # Watch src directory and run 'make dev' on file changes
+
+# Run web app
+make run-app          # Run the Web app in development mode
 ```
