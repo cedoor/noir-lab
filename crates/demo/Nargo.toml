@@ -1,4 +1,4 @@
 [package]
-name = "noir_generics"
+name = "demo"
 type = "bin"
 authors = ["Cedoor"]
