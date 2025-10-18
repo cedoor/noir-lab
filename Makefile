@@ -28,22 +28,22 @@ install: ## Install Noir toolchain using noirup
 .PHONY: check
 check: ## Check code compilation without building artifacts
 	@echo "Checking code compilation..."
-	nargo check
+	nargo check --workspace
 
 .PHONY: check-warnings
 check-warnings: ## Check code compilation and treat warnings as errors
 	@echo "Checking code compilation with warnings as errors..."
-	nargo check --deny-warnings
+	nargo check --deny-warnings --workspace
 
 .PHONY: format
 format: ## Format code using nargo fmt
 	@echo "Formatting code..."
-	nargo fmt
+	nargo fmt --workspace
 
 .PHONY: format-check
 format-check: ## Check if code is properly formatted
 	@echo "Checking code formatting..."
-	nargo fmt --check
+	nargo fmt --check --workspace
 
 .PHONY: lint
 lint: check-warnings format-check ## Run linting (check + format-check)
@@ -52,7 +52,7 @@ lint: check-warnings format-check ## Run linting (check + format-check)
 .PHONY: compile
 compile: ## Compile the circuit
 	@echo "Compiling circuit..."
-	nargo compile
+	nargo compile --workspace
 
 .PHONY: build
 build: lint compile ## Build the project (lint + compile)
@@ -61,12 +61,12 @@ build: lint compile ## Build the project (lint + compile)
 .PHONY: test
 test: ## Run tests
 	@echo "Running tests..."
-	nargo test
+	nargo test --workspace
 
 .PHONY: test-verbose
 test-verbose: ## Run tests with verbose output
 	@echo "Running tests with verbose output..."
-	nargo test --show-output
+	nargo test --show-output --workspace
 
 # Clean targets
 .PHONY: clean

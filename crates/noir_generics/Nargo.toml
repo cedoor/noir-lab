@@ -1,0 +1,8 @@
+[package]
+name = "noir_generics"
+type = "bin"
+authors = ["Cedoor"]
+
+[dependencies]
+polynomial = {tag ="main", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/polynomial"}
+greco = {tag ="main", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/greco"}
