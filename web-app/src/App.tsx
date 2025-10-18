@@ -58,7 +58,9 @@ const verifyProof = useCallback(() => {
           Verify Proof
         </button>
         <br />
-        <p>Is valid: {isValid ? '✅' : '❌'}</p>
+        {isValid !== null && (
+          <p>Is valid: {isValid ? '✅' : '❌'}</p>
+        )}
       </div>
     </>
   )
