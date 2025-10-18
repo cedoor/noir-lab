@@ -35,8 +35,13 @@ jobs:
       - name: Compile circuits
         run: make compile
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
+
       - name: Install dependencies
-        run: cd web-app && pnpm install --frozen-lockfile
+        run: cd web-app && pnpm install
 
       - name: Build web app
         run: cd web-app && pnpm run build
