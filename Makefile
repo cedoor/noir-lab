@@ -4,7 +4,7 @@
 PROJECT_NAME = noir_lab
 TARGET_DIR = target
 CIRCUIT_ARTIFACT = $(TARGET_DIR)/$(PROJECT_NAME).json
-NOIRUP_VERSION = 1.0.0-beta.14
+NOIRUP_VERSION = 1.0.0-beta.11
 
 # Default target
 .PHONY: help
@@ -83,3 +83,8 @@ dev: check test ## Development workflow (check + test)
 watch: ## Watch src directory and run 'make dev' on file changes
 	@echo "Watching src/ for changes (Ctrl+C to stop)..."
 	@watchexec -e nr -w src "make dev"
+
+.PHONY: run-app
+run-app: ## Run the app in development mode
+	@echo "Running web app..."
+	cd web-app && npm run dev
