@@ -4,5 +4,5 @@ type = "bin"
 authors = ["Cedoor"]
 
 [dependencies]
-polynomial = {tag ="dev", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/polynomial"}
-greco = {tag ="dev", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/greco"}
+polynomial = {tag ="armanc/safe-optimization", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/polynomial"}
+greco = {tag ="armanc/safe-optimization", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/greco"}
