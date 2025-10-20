@@ -1,4 +1,5 @@
-import { Play } from "lucide-react"
+import { Play, Shield } from "lucide-react"
+import { Link } from "react-router-dom"
 
 import {
   Sidebar,
@@ -19,10 +20,18 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="px-6 py-6">
-              <a href="#" className="flex items-center gap-2">
+              <Link to="/" className="flex items-center gap-2">
                 <Play className="h-4 w-4" />
                 <span>Demo</span>
-              </a>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild className="px-6 py-6">
+              <Link to="/bfv-ciphertext-addition" className="flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                <span>BFV Addition</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

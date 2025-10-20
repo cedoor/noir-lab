@@ -25,7 +25,7 @@ export function convertProverTomlCli(circuitName) {
 
         fs.writeFileSync(outputPath, JSON.stringify(jsonInputs, null, 2));
 
-        console.log(`Converted toml file to json file at ${circuitName}.json`);
+        console.log(`Converted toml file to json file at ${circuitName}_inputs.json`);
     } catch (error) {
         console.error('Conversion failed:', error);
         process.exit(1);
