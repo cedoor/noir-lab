@@ -24,9 +24,12 @@ pids
 .vscode/*
 !.vscode/extensions.json
 .idea
-*.swp
-*.swo
-*~
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Circuit-specific ignores
 proofs/
