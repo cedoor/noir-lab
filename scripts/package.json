@@ -1,0 +1,18 @@
+{
+  "name": "noir-lab-scripts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "generate-proof": "node src/generate-proof.js",
+    "toml-to-json": "node src/toml-to-json.js"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "@aztec/bb.js": "0.87.0",
+    "@noir-lang/noir_js": "1.0.0-beta.11",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}
