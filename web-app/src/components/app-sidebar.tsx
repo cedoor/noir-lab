@@ -1,4 +1,4 @@
-import { Play, Shield } from "lucide-react"
+import { Play } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import {
