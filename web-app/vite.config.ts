@@ -16,5 +16,5 @@ export default defineConfig({
     esbuildOptions: { target: 'esnext' },
     exclude: ['@noir-lang/noirc_abi', '@noir-lang/acvm_js', '@noir-lang/noir_js', '@aztec/bb.js']
   },
-  base: 'noir-lab'
+  base: '/noir-lab/'
 })
