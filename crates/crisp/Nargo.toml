@@ -1,5 +1,5 @@
 [package]
-name = "bfv_ciphertext_addition"
+name = "crisp"
 type = "bin"
 authors = ["Cedoor"]
 

@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { UltraHonkBackend, type ProofData } from '@aztec/bb.js';
 import { Noir, type CompiledCircuit } from '@noir-lang/noir_js';
-import circuit from '../../../target/bfv_ciphertext_addition.json';
+import circuit from '../../../target/crisp.json';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
-import { JsWitnessGenerator } from "crisp-zk"
+import { ZKInputsGenerator } from "crisp-zk"
 
-function BFVCiphertextAddition() {
+function CRISP() {
     const [noir, setNoir] = useState<Noir | null>(null);
     const [backend, setBackend] = useState<UltraHonkBackend | null>(null);
     const [proof, setProof] = useState<ProofData | null>(null);
@@ -35,10 +35,10 @@ function BFVCiphertextAddition() {
         try {
             // Input generation timing
             const inputStartTime = performance.now();
-            const generator = new JsWitnessGenerator();
+            const generator = new ZKInputsGenerator();
             const publicKey = await generator.generatePublicKey();
             const voteValue = parseInt(vote);
-            const inputs = await generator.generateWitness(publicKey, voteValue);
+            const inputs = await generator.generateInputs(publicKey, voteValue);
             const inputEndTime = performance.now();
             const inputTime = inputEndTime - inputStartTime;
 
@@ -84,20 +84,16 @@ function BFVCiphertextAddition() {
     return (
         <div className="w-full max-w-2xl mx-auto space-y-6">
             <div className="text-center space-y-2">
-                <h1 className="text-3xl font-bold tracking-tight">Greco</h1>
+                <h1 className="text-3xl font-bold tracking-tight">CRISP</h1>
                 <p className="text-muted-foreground">
-                    This circuit verifies Greco.
+                    This app demonstrates all steps to generate CRISP proofs: input pre-computation, proof generation and verification.
                 </p>
             </div>
 
             <Card>
                 <CardHeader>
-                    <CardTitle>Circuit Parameters</CardTitle>
-                    <CardDescription>
-                        This circuit demonstrates Greco verification.
-                        Note: This requires proper parameters to work correctly,
-                        which have been previously generated.
-                    </CardDescription>
+                    <CardTitle>Input Values</CardTitle>
+                    <CardDescription>Enter a vote (0 or 1) to pre-compute the inputs and generate a proof.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="p-4 bg-muted rounded-lg">
@@ -213,4 +209,4 @@ function BFVCiphertextAddition() {
     )
 }
 
-export default BFVCiphertextAddition;
+export default CRISP;

@@ -42,8 +42,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       crisp-zk:
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.3.0
+        version: 0.3.0
       lucide-react:
         specifier: ^0.546.0
         version: 0.546.0(react@19.2.0)
@@ -1214,8 +1214,8 @@ packages:
     resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
     engines: {node: '>=18'}
 
-  crisp-zk@0.2.0:
-    resolution: {integrity: sha512-hWJ+nNXSY/0FNfiCa3QNTK98q7Px56wkYdHvsZiu8x27/UP8dY9tsOf+yiPHBg7Y9E1eKCw1HpS1V3hTxJ8jYg==}
+  crisp-zk@0.3.0:
+    resolution: {integrity: sha512-rhOExFfEbzVONFNG0IBi1AI2afR/wJ8RhZwQE/BS0h9wqCQlxOMmOupP5QWU0pxQvGzBfBE/WavlG5jE7VXzfw==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2928,7 +2928,7 @@ snapshots:
 
   cookie@1.0.2: {}
 
-  crisp-zk@0.2.0: {}
+  crisp-zk@0.3.0: {}
 
   cross-spawn@7.0.6:
     dependencies:

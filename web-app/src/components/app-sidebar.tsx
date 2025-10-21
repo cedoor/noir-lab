@@ -28,8 +28,8 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="px-6 py-6">
-              <Link to="/bfv-ciphertext-addition" className="flex items-center gap-2">
-                <span>Greco</span>
+              <Link to="/crisp" className="flex items-center gap-2">
+                <span>CRISP</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -3,7 +3,7 @@ import { ThemeProvider } from './components/theme-provider';
 import { Navbar } from './components/ui/navbar';
 import Layout from './layout';
 import Demo from './pages/demo';
-import BFVCiphertextAddition from './pages/bfv-ciphertext-addition';
+import CRISP from './pages/crisp';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
             <div className="p-4">
               <Routes>
                 <Route path="/" element={<Demo />} />
-                <Route path="/bfv-ciphertext-addition" element={<BFVCiphertextAddition />} />
+                <Route path="/crisp" element={<CRISP />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
