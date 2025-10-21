@@ -29,8 +29,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="px-6 py-6">
               <Link to="/bfv-ciphertext-addition" className="flex items-center gap-2">
-                <Shield className="h-4 w-4" />
-                <span>BFV Addition</span>
+                <span>Greco</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -4,6 +4,9 @@ import { Noir, type CompiledCircuit } from '@noir-lang/noir_js';
 import circuit from '../../../target/bfv_ciphertext_addition.json';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
+import { JsWitnessGenerator } from "crisp-zk"
 
 function BFVCiphertextAddition() {
     const [noir, setNoir] = useState<Noir | null>(null);
@@ -13,6 +16,9 @@ function BFVCiphertextAddition() {
     const [isValid, setIsValid] = useState<boolean | null>(null);
     const [isGenerating, setIsGenerating] = useState<boolean>(false);
     const [isVerifying, setIsVerifying] = useState<boolean>(false);
+    const [vote, setVote] = useState<string>('1');
+    const [provingTime, setProvingTime] = useState<number | null>(null);
+    const [inputGenerationTime, setInputGenerationTime] = useState<number | null>(null);
 
     useEffect(() => {
         const noir = new Noir(circuit as CompiledCircuit);
@@ -27,28 +33,38 @@ function BFVCiphertextAddition() {
 
         setIsGenerating(true);
         try {
-            const inputs = await fetch('/noir-lab/bfv_ciphertext_addition_inputs.json', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => response.json());
+            // Input generation timing
+            const inputStartTime = performance.now();
+            const generator = new JsWitnessGenerator();
+            const publicKey = await generator.generatePublicKey();
+            const voteValue = parseInt(vote);
+            const inputs = await generator.generateWitness(publicKey, voteValue);
+            const inputEndTime = performance.now();
+            const inputTime = inputEndTime - inputStartTime;
 
+            // Proving timing
+            const provingStartTime = performance.now();
             const { witness, returnValue } = await noir.execute(inputs);
             const proof = await backend.generateProof(witness);
+            const provingEndTime = performance.now();
+            const provingTime = provingEndTime - provingStartTime;
 
             setProof(proof);
             setResult(returnValue ? returnValue.toString() : 'No return value');
+            setInputGenerationTime(inputTime);
+            setProvingTime(provingTime);
 
             setIsValid(null);
             console.log("Proof generated", proof);
+
+            await backend.destroy();
         } catch (error) {
             console.error('Error generating proof:', error);
             alert('Error generating proof. This circuit requires proper parameters.');
         } finally {
             setIsGenerating(false);
         }
-    }, [noir, backend]);
+    }, [noir, backend, vote]);
 
     const verifyProof = useCallback(async () => {
         if (!backend || !proof) return;
@@ -68,9 +84,9 @@ function BFVCiphertextAddition() {
     return (
         <div className="w-full max-w-2xl mx-auto space-y-6">
             <div className="text-center space-y-2">
-                <h1 className="text-3xl font-bold tracking-tight">BFV Ciphertext Addition</h1>
+                <h1 className="text-3xl font-bold tracking-tight">Greco</h1>
                 <p className="text-muted-foreground">
-                    This circuit verifies BFV ciphertext addition using homomorphic encryption.
+                    This circuit verifies Greco.
                 </p>
             </div>
 
@@ -78,7 +94,7 @@ function BFVCiphertextAddition() {
                 <CardHeader>
                     <CardTitle>Circuit Parameters</CardTitle>
                     <CardDescription>
-                        This circuit demonstrates BFV ciphertext addition verification.
+                        This circuit demonstrates Greco verification.
                         Note: This requires proper parameters to work correctly,
                         which have been previously generated.
                     </CardDescription>
@@ -93,9 +109,28 @@ function BFVCiphertextAddition() {
                         </ul>
                     </div>
                     
+                    <div className="space-y-2">
+                        <Label htmlFor="vote">Vote (0 or 1)</Label>
+                        <Input
+                            id="vote"
+                            type="number"
+                            min="0"
+                            max="1"
+                            value={vote}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || value === '0' || value === '1') {
+                                    setVote(value);
+                                }
+                            }}
+                            placeholder="Enter 0 or 1"
+                            className="w-full"
+                        />
+                    </div>
+                    
                     <Button 
                         onClick={generateProof} 
-                        disabled={isGenerating || !noir || !backend}
+                        disabled={isGenerating || !noir || !backend || (vote !== '0' && vote !== '1')}
                         className="w-full"
                     >
                         {isGenerating ? 'Generating Proof...' : 'Generate Proof'}
@@ -121,6 +156,29 @@ function BFVCiphertextAddition() {
                                 <p className="text-lg font-mono font-bold break-all">
                                     {result}
                                 </p>
+                            </div>
+                        )}
+                        
+                        {provingTime !== null && inputGenerationTime !== null && (
+                            <div className="space-y-3">
+                                <div className="p-4 bg-muted rounded-lg">
+                                    <p className="text-sm text-muted-foreground mb-2">Input Generation Time:</p>
+                                    <p className="text-lg font-mono font-bold">
+                                        {inputGenerationTime.toFixed(2)} ms
+                                    </p>
+                                </div>
+                                <div className="p-4 bg-muted rounded-lg">
+                                    <p className="text-sm text-muted-foreground mb-2">Proving Time:</p>
+                                    <p className="text-lg font-mono font-bold">
+                                        {provingTime.toFixed(2)} ms
+                                    </p>
+                                </div>
+                                <div className="p-4 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                    <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">Total Time:</p>
+                                    <p className="text-lg font-mono font-bold text-blue-800 dark:text-blue-200">
+                                        {(inputGenerationTime + provingTime).toFixed(2)} ms
+                                    </p>
+                                </div>
                             </div>
                         )}
                         
