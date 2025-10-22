@@ -41,11 +41,9 @@ pub fn check_ciphertext_addition_constraints<let D: u32, let L: u32>(
 
         let q_i = qis[i];
 
-        // NEW: quotient polynomials evaluated at gamma
         let radd0 = p.sum_r0is[i].eval(gamma_i);
         let radd1 = p.sum_r1is[i].eval(gamma_i);
 
-        // Core modular-equality constraints modulo qi
         assert(sum0 == ct0 + old0 + radd0 * q_i);
         assert(sum1 == ct1 + old1 + radd1 * q_i);
     }
