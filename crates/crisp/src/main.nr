@@ -1,20 +1,19 @@
 // SPDX-License-Identifier: LGPL-3.0-only
 //
-// This file demonstrates BFV ciphertext addition verification
+// CRISP Voting App Prototype Circuit.
 //
-// This circuit verifies that two BFV ciphertexts are correctly added together
-// using the additive homomorphism property of the BFV scheme.
+// This circuit is a prototype for CRISP, the voting app built on top of Enclave.
 
 mod ciphertext_addition;
+mod greco;
 
-// use ciphertext_addition::add_ciphertexts;
-
+use ciphertext_addition::{check_ciphertext_addition_constraints, CiphertextAdditionParams};
 use greco::{Greco, Params};
 use polynomial::Polynomial;
 
-// Main function for testing BFV ciphertext addition
-// Verifies addition of two ciphertext pairs (ct0, ct1)
+// Main function for CRISP voting prototype.
 fn main(
+    ciphertext_addition_params: pub CiphertextAdditionParams<2048, 1>,
     params: pub Params<2048, 1>,
     pk0is: pub [Polynomial<2048>; 1],
     pk1is: pub [Polynomial<2048>; 1],
@@ -51,10 +50,13 @@ fn main(
                 * (params.crypto_params().q_mod_t - k1.coefficients[2048 - 1]),
     );
 
-    circuit.verify_correct_ciphertext_encryption();
+    let gammas = circuit.verify_correct_ciphertext_encryption();
 
-    // --- Homomorphic addition: C_out = C1 + C2 (component-wise) ---
-    // Inputs: (ct0is, ct1is) and (ct0js, ct1js)
-    // Output: (sum_ct0is, sum_ct1is)
-    // let (sum_ct0is, sum_ct1is) = add_ciphertexts(ct0is, ct1is, ct0js, ct1js);
+    check_ciphertext_addition_constraints::<2048, 1>(
+        ciphertext_addition_params,
+        ct0is,
+        ct1is,
+        params.crypto_params().qis,
+        gammas,
+    );
 }

@@ -5,4 +5,4 @@ authors = ["Cedoor"]
 
 [dependencies]
 polynomial = {tag ="armanc/safe-optimization", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/polynomial"}
-greco = {tag ="armanc/safe-optimization", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/greco"}
+safe = {tag ="armanc/safe-optimization", git = "https://github.com/gnosisguild/enclave", directory = "packages/circuits/crates/libs/safe"}
