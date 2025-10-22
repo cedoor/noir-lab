@@ -38,7 +38,8 @@ function CRISP() {
             const generator = new ZKInputsGenerator();
             const publicKey = await generator.generatePublicKey();
             const voteValue = parseInt(vote);
-            const inputs = await generator.generateInputs(publicKey, voteValue);
+            const oldCiphertext = await generator.encryptVote(publicKey, voteValue);
+            const inputs = await generator.generateInputs(oldCiphertext, publicKey, voteValue);
             const inputEndTime = performance.now();
             const inputTime = inputEndTime - inputStartTime;
 
