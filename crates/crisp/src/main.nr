@@ -7,13 +7,15 @@
 mod ciphertext_addition;
 mod greco;
 
-use ciphertext_addition::{check_ciphertext_addition_constraints, CiphertextAdditionParams};
+use ciphertext_addition::{
+    check_ciphertext_addition_constraints, check_range_bounds, CiphertextAdditionParams,
+};
 use greco::{Greco, Params};
 use polynomial::Polynomial;
 
 // Main function for CRISP voting prototype.
 fn main(
-    ciphertext_addition_params: pub CiphertextAdditionParams<2048, 1>,
+    ct_add_params: pub CiphertextAdditionParams<2048, 1>,
     params: pub Params<2048, 1>,
     pk0is: pub [Polynomial<2048>; 1],
     pk1is: pub [Polynomial<2048>; 1],
@@ -52,8 +54,10 @@ fn main(
 
     let gammas = circuit.verify_correct_ciphertext_encryption();
 
+    check_range_bounds::<2048, 1, 1>(ct_add_params);
+
     check_ciphertext_addition_constraints::<2048, 1>(
-        ciphertext_addition_params,
+        ct_add_params,
         ct0is,
         ct1is,
         params.crypto_params().qis,
